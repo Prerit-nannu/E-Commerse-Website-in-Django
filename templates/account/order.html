@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+{% load cart_tag %}
+
+ <main>
+     <h2>Your Orders</h2>
+        <!-- cart-area-start -->
+        <section class="cart-area pt-120 pb-120">
+            <div class="container">
+               <div class="row">
+                  <div class="col-12">
+                        <form action="{% url 'orders' %}">
+                           <div class="table-content table-responsive">
+                              <table class="table">
+                                    <thead>
+                                       <tr>
+                                          <th class="product-thumbnail">Images</th>
+                                          <th class="cart-product-name">Product</th>
+                                          <th class="product-price">Unit Price</th>
+                                          <th class="product-quantity">Quantity</th>
+                                          <th class="product-subtotal">Total</th>
+                                          <th class="product-remove">Date</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if user.is_authenticated %}
+                                    {% for order in Order %}
+                                       <tr id="id{{value.id}}">
+                                          <td class="product-thumbnail"><a href="shop-details.html" name="product_image"><img src="{{product.featured_image}}" alt=""></a></td>
+                                          <td class="product-name"><a href="shop-details.html" name="product_name">{{order.Product}}</a></td>
+                                          <td class="product-price"><span class="amount" >Rs.{{order.Price}}</span><a name="product_price"></a></td>
+                                           <td class="product-quantity"><span class="amount" >Rs.{{order.Quantity}}</span><a name="product_price"></a></td>
+                                          <td class="product-subtotal"><span class="amount">Rs.{{order.price|multiply:order.quantity }}</span><a name="product_totalprice"></a></td>
+                                          <td class="product-Date"><span class="amount" >Rs.{{order.Date}}</span><a name="Date"></a></td>
+                                       </tr>
+                                    {% endfor %}
+                                    {% else%}
+                                       <h3> Please Login To see your Oders </h3>
+                                    {% endif %}
+
+                                    </tbody>
+                              </table>
+                           </div>
+                        </form>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <!-- cart-area-end -->
+
+    </main>
+
+{% endblock %}
